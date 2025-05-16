@@ -6,8 +6,6 @@ EVALUATION INSTRUCTIONS:
    - A simple greeting/small talk (like "hi", "hello", "how are you")
    - A general question unrelated to cheese
    - A cheese-specific query that needs expertise
-   - user query is not syntax-well
-   - user query is ambiguous e.g. (like "all the cheapest cheese") 
 
 3. Only request human feedback when ALL of these are true:
    - The query is specifically about cheese (not general small talk)

@@ -90,12 +90,14 @@ The query is as follows.
 
 When generating the query:
 
-For queries that ask for multiple items (using words like "all", "show me", plural forms, etc.):
+For queries that ask for multiple items WITHOUT specifying a number (using words like "all", "show me", plural forms without numbers, etc.):
 1. First generate a COUNT query with 'necessary_info__' prefix to get total number of matches
 2. Then generate a SELECT query to get 3-5 example items, ordered appropriately
 
-For queries asking for a specific single item:
-- Return exactly one result using LIMIT 1
+For queries asking for:
+- A specific single item: Return exactly one result using LIMIT 1
+- A specific number of items (e.g., "5 products", "top 3"): Return only the SELECT query with the specified LIMIT
+- Do NOT generate COUNT query when the number of items is explicitly specified
 
 Do not include any special characters such as ` at the end or beginning of the generation.
 And also, do not include any other things that is not related to SQL query itself.
@@ -121,12 +123,16 @@ Double check the SQLite query for common mistakes, including:
 
 ! If user does not mention explicitly for each or case, then generate query for each.
   Tell me the most expensive cheese.=>SELECT * FROM cheese_data ORDER BY price_each DESC LIMIT 1
+! If user mention the number of items to display, don't need to get the number of total count.
 
 Examples:
 1. "Show me all products whose price is higher than $100" should generate:
    SELECT COUNT(*) AS necessary_info__total_matches FROM cheese_data WHERE price_each > 100;
    SELECT * FROM cheese_data WHERE price_each > 100 ORDER BY price_each DESC LIMIT 5;
 
-2. "What is the most expensive cheese?" should generate:
+2. "Show give me most expensive 5 cheese products by price":
+   SELECT * FROM cheese_data WHERE price_each IS NOT NULL ORDER BY price_each DESC LIMIT 5;
+
+3. "What is the most expensive cheese?" should generate:
    SELECT * FROM cheese_data ORDER BY price_each DESC LIMIT 1;
 """
