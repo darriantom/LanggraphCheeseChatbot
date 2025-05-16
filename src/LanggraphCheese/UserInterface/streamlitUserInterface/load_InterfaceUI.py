@@ -3,7 +3,7 @@ import os
 from datetime import date
 
 from langchain_core.messages import AIMessage,HumanMessage
-from src.LanggraphCheese.ui.uiconfigfile import Config
+from src.LanggraphCheese.UserInterface.uiconfigfile import Config
 
 REASONING_TOGGLE_KEY = "reasoning_toggle_state"
 

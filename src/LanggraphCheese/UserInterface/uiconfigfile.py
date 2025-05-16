@@ -1,8 +1,8 @@
 from configparser import ConfigParser
 
 class Config:
-    def __init__(self,config_file="./src/LanggraphCheese/ui/uiconfigfile.ini"):
-        self.config=ConfigParser()
+    def __init__(self, config_file="./src/LanggraphCheese/UserInterface/config.ini"):
+        self.config = ConfigParser()
         self.config.read(config_file)
 
     def get_llm_options(self):
@@ -16,4 +16,3 @@ class Config:
 
     def get_page_title(self):
         return self.config["DEFAULT"].get("PAGE_TITLE")
-

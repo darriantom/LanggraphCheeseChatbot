@@ -4,15 +4,16 @@ from typing import List, Dict
 from src.LanggraphCheese.db.vectordb import vector_db
 from src.LanggraphCheese.db.mysql import mysql_db
 from langchain_core.messages import SystemMessage, HumanMessage
-from src.LanggraphCheese.graph.graph_state import GraphState, DatabaseEnum
-from src.LanggraphCheese.template.prompt_templates.sql_vector import sql_vector
-from src.LanggraphCheese.template.prompt_templates.generate_sql import generate_sql
-from src.LanggraphCheese.template.prompt_templates.generate_response import generate_response
-from src.LanggraphCheese.template.prompt_templates.generate_feedback import feedback_prompt
-from src.LanggraphCheese.template.function_templates.sql_vector import sql_vector_tool
+from src.LanggraphCheese.model.graph_state import GraphState, DatabaseEnum
+from src.LanggraphCheese.prompt_templates.prompt_templates.sql_vector import sql_vector
+from src.LanggraphCheese.prompt_templates.prompt_templates.generate_sql import generate_sql
+from src.LanggraphCheese.prompt_templates.prompt_templates.generate_response import generate_response
+from src.LanggraphCheese.prompt_templates.prompt_templates.generate_feedback import feedback_prompt
+from src.LanggraphCheese.prompt_templates.function_templates.sql_vector import sql_vector_tool
 from langchain_core.callbacks.manager import (
     dispatch_custom_event,
 )
+from langgraph.types import interrupt
 
 class BasicChatbotNode:
     """
@@ -176,4 +177,10 @@ class BasicChatbotNode:
         # If no repetition pattern is found, return the original text
         return text
 
-  
+class HITLNode:
+
+    def get_human_feedback(self, state: GraphState) -> GraphState:
+        print("get_human_feedback")
+        st.session_state.current_feedback_state = True
+        return interrupt(state.model_dump())  # or just interrupt(state)
+

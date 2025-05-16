@@ -1,9 +1,9 @@
 import streamlit as st
 import json
-from src.LanggraphCheese.ui.streamlitui.loadui import LoadStreamlitUI
+from src.LanggraphCheese.UserInterface.streamlitUserInterface.load_InterfaceUI import LoadStreamlitUI
 from src.LanggraphCheese.model.model import OpenAiModel
 from src.LanggraphCheese.graph.graph_builder import GraphBuilder
-from src.LanggraphCheese.ui.streamlitui.display_result import DisplayResultStreamlit
+from src.LanggraphCheese.UserInterface.streamlitUserInterface.display_result import DisplayResultStreamlit
 
 # MAIN Function START
 def show_langgraph_diagram():

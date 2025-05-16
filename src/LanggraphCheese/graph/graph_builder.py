@@ -1,9 +1,9 @@
 from langgraph.graph import StateGraph, START,END, MessagesState
 from langgraph.prebuilt import tools_condition,ToolNode
 from langchain_core.prompts import ChatPromptTemplate
-from src.LanggraphCheese.graph.graph_state import GraphState, DatabaseEnum
-from src.LanggraphCheese.nodes.basic_chatbot_node import BasicChatbotNode
-from src.LanggraphCheese.nodes.hitl_node import HITLNode
+from src.LanggraphCheese.model.graph_state import GraphState, DatabaseEnum
+from src.LanggraphCheese.nodes.nodes import BasicChatbotNode
+from src.LanggraphCheese.nodes.nodes import HITLNode
 from langgraph.checkpoint.memory import MemorySaver
 
 memory = MemorySaver()
