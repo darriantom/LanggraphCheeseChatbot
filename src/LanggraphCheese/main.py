@@ -17,25 +17,25 @@ def show_langgraph_diagram():
         // Node styles
         START [shape=circle, style=filled, color="#4CAF50", fontcolor=white, label="Start"];
         END [shape=circle, style=filled, color="#F44336", fontcolor=white, label="End"];
-        reasoning [fillcolor="#2196F3", fontcolor=white, label="Reasoning"];
-        gen_sql_query [fillcolor="#9C27B0", fontcolor=white, label="Generate SQL"];
+        Reasoning_node [fillcolor="#2196F3", fontcolor=white, label="Reasoning_node"];
+        Gen_sql_query_node [fillcolor="#9C27B0", fontcolor=white, label="Generate SQL"];
         sql_search_node [fillcolor="#00BCD4", fontcolor=white, label="SQL Search"];
         vector_search_node [fillcolor="#FF9800", fontcolor=white, label="Vector Search"];
-        data_retrieval [fillcolor="#3F51B5", fontcolor=white, label="Data Retrieval"];
-        human_assistance [fillcolor="#8BC34A", fontcolor=white, label="Human Assistance"];
-        generate_response [fillcolor="#009688", fontcolor=white, label="Generate Response"];
+        Data_retrieval_node [fillcolor="#3F51B5", fontcolor=white, label="Data Retrieval"];
+        human_assistance_node [fillcolor="#8BC34A", fontcolor=white, label="Human Assistance"];
+        generate_response_node [fillcolor="#009688", fontcolor=white, label="Generate Response"];
         
         // Edge styling
-        START -> reasoning [color="#4CAF50"];
-        reasoning -> gen_sql_query [label="MySQL", color="#9C27B0"];
-        reasoning -> vector_search_node [label="VectorDB", color="#FF9800"];
-        gen_sql_query -> sql_search_node [color="#00BCD4"];
-        sql_search_node -> data_retrieval [color="#3F51B5"];
-        vector_search_node -> data_retrieval [color="#3F51B5"];
-        data_retrieval -> human_assistance [label="Need Help", color="#8BC34A"];
-        data_retrieval -> generate_response [label="Ready", color="#009688"];
-        human_assistance -> reasoning [color="#2196F3"];
-        generate_response -> END [color="#F44336"];
+        START -> human_assistance_node [color="#4CAF50"];
+        Reasoning_node -> Gen_sql_query_node [label="MySQL", color="#9C27B0"];
+        Reasoning_node -> vector_search_node [label="VectorDB", color="#FF9800"];
+        Gen_sql_query_node -> sql_search_node [color="#00BCD4"];
+        sql_search_node -> Data_retrieval_node [color="#3F51B5"];
+        vector_search_node -> Data_retrieval_node [color="#3F51B5"];
+        Data_retrieval_node -> generate_response_node [label="Ready", color="#009688"];
+        human_assistance_node -> START [color="#2196F3"];
+        human_assistance_node -> Reasoning_node [color="#2196F3"];
+        generate_response_node -> END [color="#F44336"];
         
         // Graph attributes
         graph [pad="0.5", nodesep="0.8", ranksep="0.8"];
