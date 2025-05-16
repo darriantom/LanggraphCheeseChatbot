@@ -14,7 +14,8 @@ class CreateSqlDB:
             "cursorclass": pymysql.cursors.DictCursor,
             "connect_timeout": 10,
             "read_timeout": 10,
-            "write_timeout": 10
+            "write_timeout": 10,
+            "client_flag": pymysql.constants.CLIENT.MULTI_STATEMENTS
         }
         self.initialize()
 

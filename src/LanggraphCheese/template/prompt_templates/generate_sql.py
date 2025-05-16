@@ -90,15 +90,15 @@ The query is as follows.
 
 When generating the query:
 
-Unless the user specifies a specific number of examples they wish to obtain, always limit your query to at most 1 results.
-You can order the results by a relevant column to return the most interesting examples in the database.
+For queries that ask for multiple items (using words like "all", "show me", plural forms, etc.):
+1. First generate a COUNT query with 'necessary_info__' prefix to get total number of matches
+2. Then generate a SELECT query to get 3-5 example items, ordered appropriately
+
+For queries asking for a specific single item:
+- Return exactly one result using LIMIT 1
+
 Do not include any special characters such as ` at the end or beginning of the generation.
 And also, do not include any other things that is not related to SQL query itself.
-For example one genration you made is as follows.
-SELECT id, price_case\nFROM cheese_data\nORDER BY priceorder DESC\nLIMIT 5;
-
-instead of this you need to generate following one.
-SELECT id, price_case\nFROM cheese_data\nORDER BY priceorder DESC\nLIMIT 5;
 
 If user wants other information like how many cheese data there are, except things like showimage, name, brand, category, itemcount_case, itemcount_each, dimension_case, dimension_each, weight_case, weight_each, image, related, price_case, price_each, price_per_lb, sku, wholesale, out_of_stock, product_url, priceorder, popularityorder, return it as variable with 'necessary_info__' prefix
 For example, you can generate to check how many cheese data there are.
@@ -121,6 +121,12 @@ Double check the SQLite query for common mistakes, including:
 
 ! If user does not mention explicitly for each or case, then generate query for each.
   Tell me the most expensive cheese.=>SELECT * FROM cheese_data ORDER BY price_each DESC LIMIT 1
-! You identify the plural and singular correctly. So, if the question is plural like "cheeses" or "all" or "some" than show more than 3. and if singular, show only one. 
 
+Examples:
+1. "Show me all products whose price is higher than $100" should generate:
+   SELECT COUNT(*) AS necessary_info__total_matches FROM cheese_data WHERE price_each > 100;
+   SELECT * FROM cheese_data WHERE price_each > 100 ORDER BY price_each DESC LIMIT 5;
+
+2. "What is the most expensive cheese?" should generate:
+   SELECT * FROM cheese_data ORDER BY price_each DESC LIMIT 1;
 """

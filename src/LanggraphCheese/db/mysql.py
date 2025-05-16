@@ -14,7 +14,8 @@ class MySQLService:
             "cursorclass": pymysql.cursors.DictCursor,
             "connect_timeout": 10,
             "read_timeout": 10,
-            "write_timeout": 10
+            "write_timeout": 10,
+            "client_flag": pymysql.constants.CLIENT.MULTI_STATEMENTS
         }
 
     def _get_connection(self):
